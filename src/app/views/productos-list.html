@@ -1,0 +1,60 @@
+<h3>{{ titulo }}</h3>
+<hr>
+<div class="col-lg-10 offset-lg-1">
+  <div *ngIf="!productos">
+    Loading product list ...
+  </div>
+  <div *ngIf="productos">
+    <div class="row container-search">
+        <input type="search" placeholder="Search product" class="form-control" #searchProfilesInput (keyup.enter)="searchProfiles(searchProfilesInput.value)" (blur)="searchProfiles(searchProfilesInput.value)" >
+    </div>
+    <br><br>
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-lg-6 container-card" *ngFor="let product of productos">
+        <div class="card">
+          <div *ngIf="product.image" class="img-card hovereffect">
+            <img src="http://localhost:8000{{ MEDIA_URL }}{{ product.image }}" class="producto_imagen"/>
+            <div class="overlay">
+              <a [routerLink]="['/producto', product.id]" class="info" href="#">View</a>
+            </div>
+          </div>
+          <div *ngIf="!product.image" class="img-card hovereffect">
+            <div class="imagen_relleno"></div>
+            <div class="overlay">
+              <a [routerLink]="['/producto', product.id]" class="info" href="#">View</a>
+            </div>
+          </div>
+          <div class="card-content">
+            <h4 class="card-title">{{product.name}}</h4>
+            <div class="card-description">
+              <p>{{ product.description }}</p>
+            </div>
+            <div class="card-read-more">
+              <div *ngIf="confirmado != product.id" class="botones section-actions">
+                <a [routerLink]="['/editar-producto', product.id]"><i class="fas fa-pencil-alt icon-actions"></i></a>
+                <a (click)="borrarConfirm(product.id)"><i class="fas fa-trash-alt icon-actions trash-icon"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+
+<!-- <div class="container">
+  <div *ngIf="!productos">
+    Cargando lista de productos...
+  </div>
+  <div *ngIf="productos">
+    <div class="row">
+      <div class="col s12 m9 l12">
+        <div class="section">
+          <div class="col s12 m9 l12 table-responsive">
+            <a [routerLink]="['/crear-producto']" class="btn btn-md btn-success header" style="margin: 15px;">Add product</a>
+            <table datatable [dtOptions]="dtOptions" class="table table-hover row-border" style="border-radius: 10px;"></table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
