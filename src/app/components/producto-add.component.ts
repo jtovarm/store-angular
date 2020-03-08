@@ -41,13 +41,6 @@ export class ProductoAddComponent {
         if (this.filesToUpload && this.filesToUpload.length >= 1) {
           this._productoService.photo(this.formData).subscribe(res => {
             this._router.navigate(['/productos']);
-          }, err => {
-            swal.fire(
-              'Error!',
-              'Your file could not be uploaded.',
-              'error'
-            );
-            this._router.navigate(['/productos']);
           });
         }
         const swalWithBootstrapButtons = swal.mixin({
