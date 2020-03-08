@@ -11,9 +11,9 @@
           </div>
           <div class="card-content">
               <h4 class="card-title">{{producto.name}}</h4>
-              <p><strong>{{producto.description}}</strong></p>
-              <p>${{producto.precio}}</p>
-              <p>{{producto.date_up}}</p>
+              <p><strong>Description:</strong> {{producto.description}}</p>
+              <p><strong>Price:</strong> ${{producto.precio}}</p>
+              <p><strong>Discharge date:</strong> {{producto.date_up | date: 'MMMM d, y'}}</p>
           </div>
       </div>
     </div>
