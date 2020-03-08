@@ -360,7 +360,7 @@ input[type=search]:focus {
   text-align: center;
 }
 
-.not-have-image {
+.not-have-image, .have-image {
   height: 200px;
 }
 
@@ -370,7 +370,7 @@ p {
 
 @media (min-width: 1360px) {
   .container-card {
-    max-width: 30% !important;
+    max-width: 32% !important;
   }
 }
 
