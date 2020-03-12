@@ -370,6 +370,18 @@ p {
   text-align: justify;
 }
 
+.description-product {
+  text-align: initial;
+}
+
+.loading {
+  text-align: center;
+}
+
+.loading-image {
+  margin: 10%;
+}
+
 @media (min-width: 1360px) {
   .container-card {
     max-width: 32% !important;

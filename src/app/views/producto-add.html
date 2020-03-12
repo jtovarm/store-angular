@@ -1,38 +1,43 @@
-<h3>{{titulo}}</h3>
-<hr>
-<form #formProducto="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
-  <div class="row">
-    <div class="container-img-preview">
-      <img *ngIf="haveImage" src="http://localhost:8000{{ MEDIA_URL }}{{ producto.image }}" class="have-image img-responsive rounded-circle" id="image-preview">
-      <img *ngIf="!haveImage" src="/src/assets/img/product large.jpg" class="not-have-image img-responsive rounded-circle" id="image-preview">
-      <input type="file" class="file-input-preview" (change)="fileChange($event)">
+<div *ngIf="loading" class="loading">
+  <img class="loading-image" src="/src/assets/img/loading.svg">
+</div>
+<div *ngIf="!loading">
+  <h3>{{titulo}}</h3>
+  <hr>
+  <form #formProducto="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
+    <div class="row">
+      <div class="container-img-preview">
+        <img *ngIf="haveImage" src="http://localhost:8000{{ MEDIA_URL }}{{ producto.image }}" class="have-image img-responsive rounded-circle" id="image-preview">
+        <img *ngIf="!haveImage" src="/src/assets/img/product large.jpg" class="not-have-image img-responsive rounded-circle" id="image-preview">
+        <input type="file" class="file-input-preview" (change)="fileChange($event)">
+      </div>
     </div>
-  </div>
-  <br>
-  <label>
-    Name:
-    <span *ngIf="!nombre.valid && nombre.touched" class="badge badge-danger">Name is required</span>
-  </label>
-  <input type="text" #nombre="ngModel" name="name" [(ngModel)]="producto.name" class="form-control" value="" required>
-  <br>
-  <label>
-    Description:
-    <span *ngIf="!descripcion.valid && descripcion.touched" class="badge badge-danger">Description is required</span>
-  </label>
-  <textarea class="form-control" #descripcion="ngModel" name="descripcion" [(ngModel)]="producto.description" required></textarea>
-  <br>
-  <label>
-    Price:
-    <span *ngIf="!precio.valid && precio.touched" class="badge badge-danger">Price is required</span>
-  </label>
-  <input type="text" class="form-control" #precio="ngModel" name="precio" [(ngModel)]="producto.precio" required pattern="[0-9]+">
-  <!-- <br>
-  <div *ngIf="!is_edit">
-    <label>Image:</label>
-    <input type="file" class="form-control" (change)="fileChange($event)">
-  </div> -->
-  <br>
-  <div class="row submit-form">
-    <input type="submit" value="{{titulo}}" [disabled]="!formProducto.form.valid" class="btn btn-success">
-  </div>
-</form>
+    <br>
+    <label>
+      Name:
+      <span *ngIf="!nombre.valid && nombre.touched" class="badge badge-danger">Name is required</span>
+    </label>
+    <input type="text" #nombre="ngModel" name="name" [(ngModel)]="producto.name" class="form-control" value="" required>
+    <br>
+    <label>
+      Description:
+      <span *ngIf="!descripcion.valid && descripcion.touched" class="badge badge-danger">Description is required</span>
+    </label>
+    <textarea class="form-control" #descripcion="ngModel" name="descripcion" [(ngModel)]="producto.description" required></textarea>
+    <br>
+    <label>
+      Price:
+      <span *ngIf="!precio.valid && precio.touched" class="badge badge-danger">Price is required</span>
+    </label>
+    <input type="text" class="form-control" #precio="ngModel" name="precio" [(ngModel)]="producto.precio" required pattern="[0-9]+">
+    <!-- <br>
+    <div *ngIf="!is_edit">
+      <label>Image:</label>
+      <input type="file" class="form-control" (change)="fileChange($event)">
+    </div> -->
+    <br>
+    <div class="row submit-form">
+      <input type="submit" value="{{titulo}}" [disabled]="!formProducto.form.valid" class="btn btn-success">
+    </div>
+  </form>
+</div>

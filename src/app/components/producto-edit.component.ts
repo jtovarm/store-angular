@@ -19,6 +19,7 @@ export class ProductoEditComponent{
   public is_edit;
   public haveImage: string;
   public formData = new FormData();
+  public loading = false;
 
   constructor(
     private _productoService: ProductoService,
@@ -32,11 +33,36 @@ export class ProductoEditComponent{
 
   ngOnInit() {
     this.getProducto();
-    console.log(this.haveImage);
   }
 
-  onSubmit(){
+  onSubmit() {
+    this.loading = true;
     this.updateProducto();
+  }
+
+  alertSuccess(id) {
+    const swalWithBootstrapButtons = swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success butons-modal'
+      },
+      buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire(
+      'Updated!',
+      'Your product has been updated.',
+      'success'
+    );
+    // this._router.navigate(['/producto', id]);
+    this._router.navigate(['/productos']);
+  }
+
+  alertError() {
+    swal.fire(
+      'Error!',
+      'Your product could not be updated.',
+      'error'
+    );
+    this._router.navigate(['/productos']);
   }
 
   updateProducto(){
@@ -46,29 +72,16 @@ export class ProductoEditComponent{
         result => {
           if (this.filesToUpload && this.filesToUpload.length >= 1) {
             this._productoService.photoUpdate(id, this.formData).subscribe(res => {
-              this._router.navigate(['/productos']);
+              this.loading = false;
+              this.alertSuccess(id);
             });
-          }
-          const swalWithBootstrapButtons = swal.mixin({
-            customClass: {
-              confirmButton: 'btn btn-success butons-modal'
-            },
-            buttonsStyling: false
-          });
-          swalWithBootstrapButtons.fire(
-            'Updated!',
-            'Your product has been updated.',
-            'success'
-          );
-          this._router.navigate(['/producto', id]);
+          } else {
+            this.loading = false;
+            this.alertSuccess(id);
         },
         error => {
-          swal.fire(
-            'Error!',
-            'Your product could not be updated.',
-            'error'
-          );
-          this._router.navigate(['/productos']);
+          this.loading = false;
+          this.alertError();
         }
       );
     });

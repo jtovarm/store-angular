@@ -18,6 +18,7 @@ export class ProductosListComponent implements AfterViewInit, OnInit {
   public productos: Producto[];
   public confirmado;
   public term: string;
+  public have_products = true;
 
   constructor(
     private _route: ActivatedRoute,
@@ -155,12 +156,16 @@ export class ProductosListComponent implements AfterViewInit, OnInit {
     if (this.term) {
       this._productoService.searchProducto(this.term).subscribe(
         result => {
-          this.productos = result.products_list;
-        },
-        error => {
+          if (result.products_list.length > 0) {
+            this.have_products = true;
+            this.productos = result.products_list;
+          } else {
+            this.have_products = false;
+          }
         }
       );
     } else {
+      this.have_products = true;
       this.getProductos();
     }
   }

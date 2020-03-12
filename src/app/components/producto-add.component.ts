@@ -17,6 +17,7 @@ export class ProductoAddComponent {
   public filesToUpload;
   public resultUpload;
   public formData = new FormData();
+  public loading = false;
 
   constructor(
     private _productoService: ProductoService,
@@ -32,7 +33,32 @@ export class ProductoAddComponent {
   }
 
   onSubmit() {
+    this.loading = true;
     this.saveProduct();
+  }
+
+  alertSuccess() {
+    const swalWithBootstrapButtons = swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success butons-modal'
+      },
+      buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire(
+      'Add product!',
+      'Your product has been added.',
+      'success'
+    );
+    this._router.navigate(['/productos']);
+  }
+
+  alertError() {
+    swal.fire(
+      'Error!',
+      'Your product could not be added.',
+      'error'
+    );
+    this._router.navigate(['/productos']);
   }
 
   saveProduct() {
@@ -40,29 +66,17 @@ export class ProductoAddComponent {
       result => {
         if (this.filesToUpload && this.filesToUpload.length >= 1) {
           this._productoService.photo(this.formData).subscribe(res => {
-            this._router.navigate(['/productos']);
+            this.loading = false;
+            this.alertSuccess();
           });
+        } else {
+          this.loading = false;
+          this.alertSuccess();
         }
-        const swalWithBootstrapButtons = swal.mixin({
-          customClass: {
-            confirmButton: 'btn btn-success butons-modal'
-          },
-          buttonsStyling: false
-        });
-        swalWithBootstrapButtons.fire(
-          'Add product!',
-          'Your product has been added.',
-          'success'
-        );
-        this._router.navigate(['/productos']);
       },
       error => {
-        swal.fire(
-          'Error!',
-          'Your product could not be added.',
-          'error'
-        );
-        this._router.navigate(['/productos']);
+        this.loading = false;
+        this.alertError();
       }
     );
   }
