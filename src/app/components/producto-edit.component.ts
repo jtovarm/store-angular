@@ -78,6 +78,7 @@ export class ProductoEditComponent{
           } else {
             this.loading = false;
             this.alertSuccess(id);
+          }
         },
         error => {
           this.loading = false;
