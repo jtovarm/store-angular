@@ -23,7 +23,7 @@
     "@toverux/ngx-sweetalert2": "^4.0.0",
     "angular-datatables": "^6.0.0",
     "core-js": "^2.5.4",
-    "datatables.net": "^1.10.20",
+    "datatables.net": "^1.10.22",
     "datatables.net-dt": "^1.10.20",
     "jquery": "^3.4.1",
     "rxjs": "~6.2.0",
